@@ -1,0 +1,35 @@
+#
+#services:
+#  postgres:
+#    image: postgres:15
+#    container_name: study_management_db
+#    environment:
+#      POSTGRES_DB: study_management
+#      POSTGRES_USER: study_user
+#      POSTGRES_PASSWORD: study_password
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  app:
+#    build: .
+#    container_name: study_management_app
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    environment:
+#      DATASOURCE_URL: jdbc:postgresql://postgres:5432/study_management
+#      DB_USERNAME: study_user
+#      DB_PASSWORD: study_password
+#      SPRING_PROFILES_ACTIVE: prod
+#    ports:
+#      - "8080:8080"
+#
+#volumes:
+#  postgres_data:

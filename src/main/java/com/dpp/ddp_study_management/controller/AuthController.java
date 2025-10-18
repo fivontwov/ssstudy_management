@@ -4,8 +4,10 @@ import com.dpp.ddp_study_management.common.dto.ApiResponse;
 import com.dpp.ddp_study_management.common.util.JwtUtil;
 import com.dpp.ddp_study_management.common.util.ResponseCode;
 import com.dpp.ddp_study_management.dto.request.user.LoginRequest;
+import com.dpp.ddp_study_management.dto.request.user.RegistrationRequest;
 import com.dpp.ddp_study_management.dto.response.user.TokenResponse;
 import com.dpp.ddp_study_management.service.AuthService;
+import com.dpp.ddp_study_management.service.RegistrationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
+        private final RegistrationService registrationService;
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         ApiResponse<TokenResponse> apiResponse = new ApiResponse<>(
@@ -35,6 +39,19 @@ public class AuthController {
         );
         return ResponseEntity
                 .status(HttpStatus.OK)
+                .body(apiResponse);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<ApiResponse<Void>> register(@Valid @RequestBody RegistrationRequest request) {
+        registrationService.register(request);
+        ApiResponse<Void> apiResponse = new ApiResponse<>(
+                ResponseCode.USER_CREATED.getCode(),
+                ResponseCode.USER_CREATED.getMessage(),
+                null
+        );
+        return ResponseEntity
+                .status(ResponseCode.USER_CREATED.getHttpStatus())
                 .body(apiResponse);
     }
 

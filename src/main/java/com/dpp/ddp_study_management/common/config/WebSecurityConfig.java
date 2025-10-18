@@ -28,7 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final String[] URLS_WHITELIST = {
-            "/auth/login",
+            "/auth/login","/auth/register"
     };
 
     private final UserDetailsServiceImpl userDetailsService;

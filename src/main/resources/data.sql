@@ -74,7 +74,7 @@ INSERT INTO user_roles (user_id, role_id) VALUES
     (32, 3),
     (33, 2);
 
-INSERT INTO subjects (id, description, name) VALUES
+INSERT INTO subjects ( description, name) VALUES
     ( 'Khóa học giới thiệu về lập trình Java, các khái niệm cơ bản, hướng đối tượng và thư viện chuẩn',
                                                                            'Lập trình Java cơ bản'),
     ( 'Học về thiết kế cơ sở dữ liệu quan hệ, ngôn ngữ SQL và tối ưu hóa truy vấn', 'Cơ sở dữ liệu'),
@@ -107,7 +107,7 @@ INSERT INTO subjects (id, description, name) VALUES
     ( 'Quản lý dự án phần mềm với Agile, Scrum và các phương pháp luận', 'Quản lý dự án'),
     ( 'Internet of Things (IoT), cảm biến và hệ thống kết nối thông minh', 'Internet of Things');
 
-INSERT INTO mentor_subject_assignments (id, assigned_date, mentor_id, subject_id) VALUES
+INSERT INTO mentor_subject_assignments ( assigned_date, mentor_id, subject_id) VALUES
     ('2025-09-24 17:36:00', 3, 1),
     ( '2025-09-24 17:36:00', 3, 2),
     ( '2025-09-24 17:36:00', 4, 3),
@@ -139,7 +139,7 @@ INSERT INTO mentor_subject_assignments (id, assigned_date, mentor_id, subject_id
     ( '2025-09-25 10:45:00', 33, 29),
     ( '2025-09-28 13:15:00', 3, 30);
 
-INSERT INTO mentor_mentee_registrations (id, end_date, register_date, start_date, mentee_id, mentor_id) VALUES
+INSERT INTO mentor_mentee_registrations ( end_date, register_date, start_date, mentee_id, mentor_id) VALUES
     ( '2025-12-25 10:00:00', '2025-09-25 09:17:05', '2025-09-25 10:00:00', 6, 3),
     ( '2025-12-25 10:00:00', '2025-09-25 09:17:05', '2025-09-25 10:00:00', 7, 4),
     ( '2025-12-25 10:00:00', '2025-09-25 09:17:05', '2025-09-25 10:00:00', 8, 5),
@@ -171,7 +171,7 @@ INSERT INTO mentor_mentee_registrations (id, end_date, register_date, start_date
     ( '2026-03-08 08:30:00', '2025-09-29 13:38:46', '2025-11-01 08:00:00', 17, 3),
     ( '2026-02-20 10:15:00', '2025-09-25 11:51:27', '2025-10-29 10:00:00', 19, 10);
 
-INSERT INTO subject_registrations (id, end_date, register_date, start_date, mentee_id, subject_id) VALUES
+INSERT INTO subject_registrations ( end_date, register_date, start_date, mentee_id, subject_id) VALUES
     ('2025-12-25 10:00:00', '2025-09-25 16:42:42', '2025-09-26 10:00:00', 6, 1),
     ( '2025-12-25 10:00:00', '2025-09-25 16:42:42', '2025-09-26 10:00:00', 6, 2),
     ( '2025-12-25 10:00:00', '2025-09-25 16:42:42', '2025-09-26 10:00:00', 7, 2),

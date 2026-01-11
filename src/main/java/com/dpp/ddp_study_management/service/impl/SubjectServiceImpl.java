@@ -20,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +37,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     @Transactional
+    @CacheEvict(value = {"subjects"}, allEntries = true)
     public void addSubject(SubjectCreationRequest request) {
         Subject newSubject = new Subject();
         newSubject.setName(request.getName());
@@ -46,6 +49,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
     @Override
     @Transactional
+    @CacheEvict(value = {"subjects"}, allEntries = true)
     public void updateSubject(Long subjectId, SubjectUpdateRequest request) {
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new AppException(ErrorCode.SUBJECT_NOT_FOUND));
@@ -59,6 +63,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     @Transactional
+    @CacheEvict(value = {"subjects"}, allEntries = true)
     public void deleteSubject(Long subjectId) {
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new AppException(ErrorCode.SUBJECT_NOT_FOUND));
@@ -73,6 +78,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     @Transactional
+    @Cacheable(value = "subjects", key = "#searchRequest.search + '_' + #searchRequest.page + '_' + #searchRequest.size + '_' + #searchRequest.sort + '_' + #searchRequest.name")
     public PageResponse<List<SubjectWithMentorsResponse>> getSubjectsWithMentors(SearchRequest<Subject> searchRequest) {
         Sort sort = Sort.by(Sort.Direction.fromString(searchRequest.getSort()), searchRequest.getName());
         Pageable pageable = PageRequest.of(searchRequest.getPage(), searchRequest.getSize(), sort);

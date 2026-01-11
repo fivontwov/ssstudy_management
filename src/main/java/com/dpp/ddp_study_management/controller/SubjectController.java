@@ -29,7 +29,10 @@ import java.util.List;
 public class SubjectController {
     private final SubjectService subjectService;
     private final MentorSubjectService mentorSubjectService;
-
+    @GetMapping("/")
+    public ResponseEntity hello(){
+        return ResponseEntity.ok("OK");
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/subjects")
     public ResponseEntity<ApiResponse<SubjectCreationResponse>> createSubject(

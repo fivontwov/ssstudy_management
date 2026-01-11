@@ -22,3 +22,15 @@ spring:
     init:
       mode: always
       data-locations: classpath:data.sql
+
+# Redis cache settings
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+  cache:
+    type: redis
+management:
+  endpoints:
+    web:
+      exposure:
+        include: caches

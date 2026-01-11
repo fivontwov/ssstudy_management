@@ -1,6 +1,7 @@
 package com.dpp.ddp_study_management.common.exception;
 
 import com.dpp.ddp_study_management.common.dto.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(AppException.class)
@@ -71,6 +73,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleGlobalException(Exception e) {
+        e.printStackTrace();
+        log.error("Unhandled exception: ", e);
+
         ApiResponse<Void> apiResponse = new ApiResponse<>(
                 ErrorCode.INTERNAL_ERROR.getCode(),
                 ErrorCode.INTERNAL_ERROR.getMessage(),

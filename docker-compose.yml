@@ -36,12 +36,12 @@ services:
       - "8080:8080"
 
   redis:
-    image: redis:7
+    image: redis:7.2
     container_name: study_management_redis
     ports:
       - "6379:6379"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD-SHELL", "redis-server --version || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5

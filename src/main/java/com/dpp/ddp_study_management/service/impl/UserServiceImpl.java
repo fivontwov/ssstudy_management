@@ -24,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional  
     public void addUser(UserCreationRequest request) {
         validateUserCreationRequest(request);
         saveUserFromRequest(request);
@@ -319,6 +320,28 @@ public class UserServiceImpl implements UserService {
     private boolean hasRole(User user, ERole targetRole) {
         return user.getRoles().stream()
                 .anyMatch(role -> role.getName().equals(targetRole));
+    }
+
+    @Override
+    public Mono<UserResponse> getUserById(Long id) {
+        return Mono.fromCallable(() ->
+                userRepository.findById(id)
+                        .map(this::mapToResponse)
+                        .orElseThrow(() -> new RuntimeException("User not found"))
+        );
+    }
+    private UserResponse mapToResponse(User user) {
+        UserResponse res = new UserResponse();
+        res.setId(user.getId());
+        res.setUsername(user.getUsername());
+        res.setName(user.getName());
+        res.setEmail(user.getEmail());
+        res.setCreatedAt(user.getCreatedAt());
+        if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+            ERole role = user.getRoles().iterator().next().getName();
+            res.setRole(role);
+        }
+        return res;
     }
 
 }

@@ -251,7 +251,8 @@ fail phụ thuộc resourse nên chạy localhost, 2800 bắt đầu fail vì tr
 nhận request 1 đống rồi trả về 1 đống nên rps bị lúc không lúc rất nhiều
 
 ## redis
-docker exec -it redis redis-cli (để chạy local với image redis chạy)
+docker exec -it study_management_redis redis-cli  
+ping
 
 ## docker
 docker login
